@@ -10,30 +10,53 @@
 ">
 
     <bean id="helloworld" 
-          class="com.objava.spring.model.HelloWorld" >        
+          class="com.objava.spring.model.HelloWorld" >
+        <!-- Singelton = Only a single object -->
+        <!-- ProtoType = Everytime, an object is referred, it will be initiatalized -->
         <!--        HelloWorld helloworld = new HelloWorld() ;-->
         <property name="name" value="shahzad" />
         <!--          helloworld.setName("shahzad") ;-->
     </bean>    
     
-    <bean id="lahore" 
-          class="com.objava.spring.model.City" >
+    <bean id="city" 
+          class="com.objava.spring.model.City" 
+          autowire="byName" >
+        <!-- 
+            request = Single Http Request
+            session = User Session
+            globalSession = Server Global 
+        -->
         <property name="name" value="Karachi" />
     </bean>
     
     <bean id="shahzad"
           class="com.objava.spring.model.Person" >
-        <constructor-arg index="1" 
+        <constructor-arg index="0" 
                          type="java.lang.String" 
                          value="Shahzad" />  
-        <constructor-arg index="0"
+        <constructor-arg index="1"
                          type="com.objava.spring.model.City"
-                         ref="lahore" />
+                         ref="city" />
     </bean>
     
     <bean id="masud"
-          class="com.objava.spring.model.Person">
+          class="com.objava.spring.model.Person"
+          scope="singleton" >
         <property name="name" value="masud" />
-        <property name="city" ref="lahore" />
+        <property name="city" ref="city" />
+    </bean>
+    
+    <bean id="employee1" 
+          class="com.objava.spring.model.Employee"
+          parent="masud" >
+        <property name="employeeNumber" value="1" />
+    </bean>
+    
+    <bean id="employee2" 
+          class="com.objava.spring.model.Employee"
+init-method="init" destroy-method="destroy"    >
+        <property name="employeeNumber" value="2" />
+        <property name="name" value="set-masud" />
+        <property name="city" ref="city" />
     </bean>
 </beans>

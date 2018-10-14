@@ -5,14 +5,16 @@
  */
 package com.objava.spring.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author shahzad
  */
 public class Person {
 
-    private String name;
-    private City city;
+    String name;
+    City city;
 
     public Person() {
     }
