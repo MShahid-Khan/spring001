@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+">
+
+    <bean id="helloworld" 
+          class="com.objava.spring.model.HelloWorld" >        
+        <!--        HelloWorld helloworld = new HelloWorld() ;-->
+        <property name="name" value="shahzad" />
+        <!--          helloworld.setName("shahzad") ;-->
+    </bean>    
+    
+    <bean id="lahore" 
+          class="com.objava.spring.model.City" >
+        <property name="name" value="Karachi" />
+    </bean>
+    
+    <bean id="shahzad"
+          class="com.objava.spring.model.Person" >
+        <constructor-arg index="1" 
+                         type="java.lang.String" 
+                         value="Shahzad" />  
+        <constructor-arg index="0"
+                         type="com.objava.spring.model.City"
+                         ref="lahore" />
+    </bean>
+    
+    <bean id="masud"
+          class="com.objava.spring.model.Person">
+        <property name="name" value="masud" />
+        <property name="city" ref="lahore" />
+    </bean>
+</beans>
