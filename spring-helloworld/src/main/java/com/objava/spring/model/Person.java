@@ -5,16 +5,37 @@
  */
 package com.objava.spring.model;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  *
  * @author shahzad
  */
 public class Person {
+    
+    @Autowired
+    private DataSource dataSource;
 
-    String name;
-    City city;
+    private String name;
+
+    @Autowired
+    private City city;
+    private int age;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Required
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public Person() {
     }
@@ -28,6 +49,7 @@ public class Person {
         return name;
     }
 
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -44,5 +66,4 @@ public class Person {
     public String toString() {
         return "Person{" + "name=" + name + ", city=" + city + '}';
     }
-
 }

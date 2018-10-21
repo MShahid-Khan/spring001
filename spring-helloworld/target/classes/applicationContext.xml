@@ -3,31 +3,54 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:jee="http://www.springframework.org/schema/jee"
-
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+       xmlns:context = "http://www.springframework.org/schema/context"
+       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 ">
 
-    <bean id="helloworld" 
+    <context:annotation-config />
+    
+    <bean id="cStartEventHandler" class="com.objava.spring.config.event.SpringStartEventHandler" />
+    <bean id="cEndEventHandler" class="com.objava.spring.config.event.SpringStopEventHandler" />
+    
+    <bean id="customEventHandler" class="com.objava.spring.config.event.CustomEventHandler" />
+    <bean id="customEventPublisher" class="com.objava.spring.config.event.CustomEventPublisher" />
+    
+    <bean id="dataSource"
+           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/spring01" />
+        <property name="username" value="root" />
+        <property name="password" value="intello" />            
+    </bean>
+<!--    <bean id="helloworld" 
           class="com.objava.spring.model.HelloWorld" >
-        <!-- Singelton = Only a single object -->
-        <!-- ProtoType = Everytime, an object is referred, it will be initiatalized -->
-        <!--        HelloWorld helloworld = new HelloWorld() ;-->
+         Singelton = Only a single object 
+         ProtoType = Everytime, an object is referred, it will be initiatalized 
+                HelloWorld helloworld = new HelloWorld() ;
         <property name="name" value="shahzad" />
-        <!--          helloworld.setName("shahzad") ;-->
+                  helloworld.setName("shahzad") ;
     </bean>    
     
     <bean id="city" 
-          class="com.objava.spring.model.City" 
-          autowire="byName" >
-        <!-- 
+          class="com.objava.spring.model.City" >
+         
             request = Single Http Request
             session = User Session
             globalSession = Server Global 
-        -->
-        <property name="name" value="Karachi" />
+        
+        <property name="name" value="lahore" />
     </bean>
+    
+    <bean id="lahore" 
+          class="com.objava.spring.model.City" >
+        <property name="name" value="lahore" />
+    </bean>
+    
+    
     
     <bean id="shahzad"
           class="com.objava.spring.model.Person" >
@@ -37,6 +60,8 @@
         <constructor-arg index="1"
                          type="com.objava.spring.model.City"
                          ref="city" />
+        <property name="age" value="39" />
+        <property name="name" value="required-testing" />
     </bean>
     
     <bean id="masud"
@@ -44,12 +69,15 @@
           scope="singleton" >
         <property name="name" value="masud" />
         <property name="city" ref="city" />
+        <property name="age" value="39" />
     </bean>
     
     <bean id="employee1" 
           class="com.objava.spring.model.Employee"
           parent="masud" >
         <property name="employeeNumber" value="1" />
+        <property name="name" value="parent-name" />
+        <property name="age" value="39" />
     </bean>
     
     <bean id="employee2" 
@@ -58,5 +86,25 @@ init-method="init" destroy-method="destroy"    >
         <property name="employeeNumber" value="2" />
         <property name="name" value="set-masud" />
         <property name="city" ref="city" />
+        <property name="age" value="39" />
+    </bean>-->
+    
+    <bean id="city" 
+          class="com.objava.spring.model.City" >
+        <property name="name" value="Lahore" />
     </bean>
+    
+    <bean id="karachi" 
+          class="com.objava.spring.model.City" >
+        <property name="name" value="Lahore" />
+    </bean>
+    
+    
+    <bean id="masud"
+          class="com.objava.spring.model.Employee" >
+        <property name="name" value="masud" />
+        <property name="age" value="39" />
+        <!--<property name="city" ref="city" />-->
+    </bean>
+    
 </beans>

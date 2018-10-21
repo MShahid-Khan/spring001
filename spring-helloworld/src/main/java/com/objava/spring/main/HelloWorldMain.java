@@ -5,13 +5,10 @@
  */
 package com.objava.spring.main;
 
+import com.objava.spring.config.event.CustomEventPublisher;
 import com.objava.spring.model.Employee;
-import com.objava.spring.model.HelloWorld;
-import com.objava.spring.model.Person;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  *
@@ -40,12 +37,21 @@ public class HelloWorldMain {
 //        shahzad.getCity().setName("Model Town - Lahore");
 //
 //        System.out.println(shahzad);
+        context.start();
+//        Employee masud = (Employee) context.getBean("masud");
 //        System.out.println(masud);
-        Person parent = (Person) context.getBean("masud");
-        Employee one = (Employee) context.getBean("employee1");
-        Employee two = (Employee) context.getBean("employee2");
-        System.out.println(one);
-        System.out.println(two);
+        
+        CustomEventPublisher cep = (CustomEventPublisher) 
+                context.getBean("customEventPublisher") ;
+        
+        cep.publish(); 
+        cep.publish(); 
+        
+        context.stop();
+//        Employee one = (Employee) context.getBean("employee1");
+//        Employee two = (Employee) context.getBean("employee2");
+//        System.out.println(one);
+//        System.out.println(two);
 //        parent.setName("change Parent");
 //        System.out.println(one);
 //        System.out.println(two);
@@ -64,4 +70,11 @@ public class HelloWorldMain {
     // All application start-up techniquest to bean config
     // All application shut-down to destroy
     // All application configuration to spring-configuration
+    
+    // Four 
+    // @Required
+    // @Autowired
+    // @Qualifier
+    // @Resource, @PreContruct, @PostConstruct
+    
 }
